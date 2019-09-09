@@ -1,4 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,14 +7,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { MockInterceptor } from './mock/http.interceptor';
-
-
-const apiInterceptor = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: MockInterceptor,
-  multi: true
-};
+import { mockInterceptor } from './mock/mock.interceptor';
 
 const appRoutes: Routes = [
   { path: '', component: ContactsComponent }
@@ -33,7 +26,7 @@ const appRoutes: Routes = [
     AkitaNgRouterStoreModule.forRoot()
   ],
   providers: [
-    apiInterceptor,
+    mockInterceptor,
   ],
   bootstrap: [AppComponent]
 })

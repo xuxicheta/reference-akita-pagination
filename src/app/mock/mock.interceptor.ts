@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse
+  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTTP_INTERCEPTORS
 } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { ContactsService } from '../contacts.service';
+import { ContactsMockService } from './contacts-mock.service';
 
 
 
@@ -12,10 +12,8 @@ import { ContactsService } from '../contacts.service';
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
   constructor(
-    private contactsService: ContactsService,
-  ) {
-
-  }
+    private contactsService: ContactsMockService,
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.includes('contacts')) {
@@ -29,3 +27,9 @@ export class MockInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
+
+export const mockInterceptor = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: MockInterceptor,
+  multi: true
+};
