@@ -1,0 +1,14 @@
+<button
+  *ngFor="let page of pageNumbers$ | async"
+  [class.active]="page === (activePageNumber$ | async)"
+  (click)="onPageClick(page)"
+>
+  {{page}}
+</button>
+
+<table>
+  <tr *ngFor="let contact of contacts$ | async">
+    <td>{{contact.contactId}}</td>
+    <td>{{contact.name}}</td>
+  </tr>
+</table>
